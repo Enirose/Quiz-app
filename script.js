@@ -87,4 +87,12 @@ function showQuestion() {
 
 }
 
+//function to reset the question and or remove the firstChild button
+function resetState() {
+    nextBtn.style.display = "none";
+    while(answerButtons.firstChild){
+        answerButtons.removeChild(answerButtons.firstChild)
+    };
+}
+
 startQuiz();
