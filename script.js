@@ -95,4 +95,26 @@ function resetState() {
     };
 }
 
+//function for selected answer
+function selectAnswer(e) {
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === "true";
+    if (isCorrect){
+        selectedBtn.classList.add("correct");
+    } else {
+        selectedBtn.classList.add("inCorrect")
+    }
+
+    //from list of answer buttons
+    Array.from(answerButtons.children).forEach(button => { 
+        //for each button, if you select the correct button, it will check if the dataset is true, it will display correct button with color,
+        //and you select the wrong button, it will check the dataset and display the correct button
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct");
+        }
+        button.disabled = true; //disabling to selected morethan 1 button after selecting a button
+    });
+    nextBtn.style.display = "block"; //display the next button once you selected one of the answer button
+}
+
 startQuiz();
