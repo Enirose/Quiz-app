@@ -101,11 +101,12 @@ function selectAnswer(e) {
     const isCorrect = selectedBtn.dataset.correct === "true";
     if (isCorrect){
         selectedBtn.classList.add("correct");
+        score++; //added a score where it will count how many correct selected items you got.
     } else {
         selectedBtn.classList.add("inCorrect")
     }
 
-    //from list of answer buttons
+    //displaying list of answer buttons
     Array.from(answerButtons.children).forEach(button => { 
         //for each button, if you select the correct button, it will check if the dataset is true, it will display correct button with color,
         //and you select the wrong button, it will check the dataset and display the correct button
@@ -116,5 +117,33 @@ function selectAnswer(e) {
     });
     nextBtn.style.display = "block"; //display the next button once you selected one of the answer button
 }
+
+//function to display the score 
+function showScore() {
+    resetState(); //call the reset function to reset the questoion and will display the score
+    questionList.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    nextBtn.innerHTML = "Play Again"; //chnage the title of next button to play again
+    nextBtn.style.display = "block" //displaying the button
+}
+
+
+//Create a function to handle the nextbutton
+function handleNextButton() {
+    currentQuestionIndex++; //it will display the question index
+    if(currentQuestionIndex < questions.length) { //if the current question is less than the total question
+        showQuestion();// then it will call the showQuestion function, where it will display the questions
+    } else {
+        showScore(); //otherwise, it the current index is same as the total of question, it will display the score
+    }
+}
+
+//handling the next button
+nextBtn.addEventListener("click", ()=> {
+    if (currentQuestionIndex < questions.length){ //if the current index is lessthan the total questions, handle the next button
+        handleNextButton();
+    } else {
+        startQuiz(); //otherwise start all over again
+    }
+});
 
 startQuiz();
